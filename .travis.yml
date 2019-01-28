@@ -1,8 +1,22 @@
 language: php
 php:
   - '7.0'
+
+# Start mysql service
+services:
+ - mysql
+
+# Install composer dependencies,
+# Create database, schema and fixtures
 install:
   - composer install --dev
   - ./vendor/bin/simple-phpunit install
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:create --env=test
+  - php bin/console doctrine:fixtures:load -n --env=test
 script:
   - ./vendor/bin/simple-phpunit
+  
+# After a build, send email notification with the build results
+notifications:
+ email: amorel@trigano.fr
