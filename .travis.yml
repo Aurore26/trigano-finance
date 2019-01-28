@@ -13,9 +13,7 @@ services:
   - mysql
   - elasticsearch
 
-#ElasticSearch takes few seconds to start, to make sure it is available when the build script runs add a small delay to your build script
-before_script:
-  - sleep 10
+
  
  # Cache composer packages so "composer install" is faster
  # attention provoque erreur : Could not parse .travis.yml 
@@ -36,6 +34,7 @@ before_install:
 #  - sudo service mysql restart
   - sudo mysql -u root --default-character-set=utf8 test < tests/trigano_finance_com.sql
 
+
 # Install composer dependencies,
 # Create database, schema and fixtures
 install:
@@ -45,7 +44,13 @@ install:
 #  - php bin/console doctrine:database:create --env=test
 #  - php bin/console doctrine:schema:create --env=test
 #  - php bin/console doctrine:fixtures:load -n --env=test
-  
+
+#ElasticSearch takes few seconds to start, to make sure it is available when the build script runs add a small delay to your build script
+before_script:
+  - sleep 10
+  - curl -X PUT 'http://localhost:9200/trigano_index?pretty'
+  - php bin/console fos:elastica:populate
+
 # Run script
 script:
   - ./vendor/bin/simple-phpunit
