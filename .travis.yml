@@ -13,6 +13,7 @@ services:
  - mysql
  
  # Cache composer packages so "composer install" is faster
+ # attention provoque erreur : Could not parse .travis.yml 
 #cache:
 #  directories:
 #- $HOME/.composer/cache/files
@@ -26,7 +27,7 @@ before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
   - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('trigano07') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
 #  - sudo mysql_upgrade -u root -ptrigano07
-  - sudo mysql_upgrade -u root 
+  - sudo mysql_upgrade -u root --force
   - sudo service mysql restart
 
 # Install composer dependencies,
@@ -35,9 +36,9 @@ install:
   - composer install
   - ./vendor/bin/simple-phpunit install
   - cp .env.travis .env
-  - php bin/console doctrine:database:create
-  - php bin/console doctrine:schema:create
-  - php bin/console doctrine:fixtures:load -n
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:create --env=test
+  - php bin/console doctrine:fixtures:load -n --env=test
   
 # Run script
 script:
