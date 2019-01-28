@@ -29,6 +29,7 @@ before_install:
 #  - sudo mysql_upgrade -u root -ptrigano07
 #  - sudo mysql_upgrade -u root --force
 #  - sudo service mysql restart
+  -sudo mysql -u root --default-character-set=utf8 test < backup_tfinancecom.sql.gz
 
 # Install composer dependencies,
 # Create database, schema and fixtures
@@ -37,8 +38,8 @@ install:
   - ./vendor/bin/simple-phpunit install
   - cp .env.travis .env
 #  - php bin/console doctrine:database:create --env=test
-  - php bin/console doctrine:schema:create --env=test
-  - php bin/console doctrine:fixtures:load -n --env=test
+#  - php bin/console doctrine:schema:create --env=test
+#  - php bin/console doctrine:fixtures:load -n --env=test
   
 # Run script
 script:
