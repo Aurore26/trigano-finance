@@ -6,18 +6,16 @@ php:
   - '7.0'
 
 # Allows use container-based infrastructure
-sudo: false
+#sudo: false
 
 # Start mysql service
 services:
  - mysql
  
  # Cache composer packages so "composer install" is faster
-cache:
-  directories:
-- $HOME/.composer/cache/files
-
-
+#cache:
+#  directories:
+#- $HOME/.composer/cache/files
   
 # Define an environment variable
 env:
@@ -33,7 +31,7 @@ before_install:
 # Install composer dependencies,
 # Create database, schema and fixtures
 install:
-  - composer install --dev
+  - composer install
   - ./vendor/bin/simple-phpunit install
   - cp .env.travis .env
   - php bin/console doctrine:database:create --env=test
