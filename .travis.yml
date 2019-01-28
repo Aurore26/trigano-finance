@@ -34,9 +34,9 @@ install:
   - composer install
   - ./vendor/bin/simple-phpunit install
   - cp .env.travis .env
-  - php bin/console doctrine:database:create --env=test
-  - php bin/console doctrine:schema:create --env=test
-  - php bin/console doctrine:fixtures:load -n --env=test
+  - php bin/console doctrine:database:create
+  - php bin/console doctrine:schema:create
+  - php bin/console doctrine:fixtures:load -n
   
 # Run script
 script:
