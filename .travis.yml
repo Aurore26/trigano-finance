@@ -10,11 +10,11 @@ sudo: false
 
 # Start mysql service
 services:
- - mysql
- - elasticsearch
+  - mysql
+  - elasticsearch
 
 #ElasticSearch takes few seconds to start, to make sure it is available when the build script runs add a small delay to your build script
- before_script:
+before_script:
   - sleep 10
  
  # Cache composer packages so "composer install" is faster
