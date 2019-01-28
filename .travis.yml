@@ -29,7 +29,7 @@ before_install:
 #  - sudo mysql_upgrade -u root -ptrigano07
 #  - sudo mysql_upgrade -u root --force
 #  - sudo service mysql restart
-  -sudo mysql -u root --default-character-set=utf8 test < backup_tfinancecom.sql.gz
+  - sudo mysql -u root --default-character-set=utf8 test < trigano_finance_com.sql
 
 # Install composer dependencies,
 # Create database, schema and fixtures
