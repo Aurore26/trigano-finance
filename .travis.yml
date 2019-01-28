@@ -6,16 +6,16 @@ php:
   - '7.0'
 
 # Allows use container-based infrastructure
-#sudo: false
+sudo: false
 
 # Start mysql service
 services:
  - mysql
  
  # Cache composer packages so "composer install" is faster
-#cache:
-#  directories:
-#  - $HOME/.composer/cache/files
+cache:
+  directories:
+- $HOME/.composer/cache/files
   
 # Define an environment variable
 env:
@@ -26,6 +26,7 @@ before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
   - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('trigano07') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
 #  - sudo mysql_upgrade -u root -ptrigano07
+  - sudo mysql_upgrade -u root 
   - sudo service mysql restart
 
 # Install composer dependencies,
