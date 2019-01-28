@@ -1,0 +1,35 @@
+
+{% extends 'base_document.html.twig' %}
+  
+{% block body_document %}	
+	<h1>{% trans %}All documents{% endtrans %} > {{ sous_titre }}</h1>
+	<!--Rating Box-->
+	<div class="rating-box">
+		<div class="inner" style="padding:40px 10px !important;">
+			<ul class="raing-info">
+			{% for document in documents %}
+				<li class="clearfix">
+					{% if document.isPublished %}
+						<a href="{{ url('document', { 'slug': document.slug}) }}">{{ document.titre }}</a>
+					{% else %}
+						{{ document.titre }}										
+					{% endif %}
+					{% if document.documentfiles is not empty %}
+					{% for fichier in document.documentfiles %}
+						<a target="_blank" href="{% path fichier.file, 'reference' %}" title="{{fichier.titre}}"><span class="fa fa-file"></span></a>
+					{% endfor %}
+					{% endif %}
+					<!--<span class="pull-right">-->
+					<br>{{ document.date|localizeddate('medium', 'none') }} - {{ document.documentType }}
+					<!--</span>-->
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>								
+{% endblock %}
+
+{% block menu_document %}
+	{{ render(controller("App\\Controller\\DocumentTypeController::blockDocType")) }}
+	{{ render(controller("App\\Controller\\DocumentController::LastCP")) }}	
+{% endblock %}

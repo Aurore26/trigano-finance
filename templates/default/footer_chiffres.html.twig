@@ -1,0 +1,42 @@
+
+		{% 
+		set chiffres_fr = { 
+			"Chiffre d'affaires": '2 314,7 M€', 
+			'Capitaux propres': '771,3 M€' , 
+			'Collaborateurs': '8 813' , 
+			'Résultats opérationnel courant': '229,9 M€' , 
+			'Résultats Net': '187,2 M€' 
+		}
+		%}
+		
+		{%
+		set chiffres_en = { 
+			'Sales': '€2,314.7 M', 
+			"Shareholder's equity": '€771.3 M' , 
+			'Workforce': '8,813' , 
+			'Current operating profit': '€229.9 M' , 
+			'Net profit': '€187.2 M' 
+		}
+		%}
+		{%if app.request.locale == "fr"%}
+			{% set chiffres = chiffres_fr %}
+		{%else%}	
+			{% set chiffres = chiffres_en %}		
+		{%endif %}
+	
+	<!--Blog Carousel Section-->
+    <section class="blog-carousel-section grey-bg">
+    	<div class="auto-container">
+			<div class="row clearfix">
+            		<section class="light">
+					    {% for key,val in chiffres %}
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<span class="gradient1">{{val}}</span><br />
+								<span class="text">{{key}}</span>
+							</div>
+						{% endfor %}
+					</section>                
+            </div>
+        </div>
+    </section>
+    <!--End Blog Carousel Section-->

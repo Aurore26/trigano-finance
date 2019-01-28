@@ -1,0 +1,42 @@
+ivory_ck_editor:
+    default_config: simple_toolbar
+    configs:
+        simple_toolbar:
+            toolbar:
+                - ['Bold', 'Italic', 'Strike', 'Link']
+                - ['BulletedList', 'NumberedList', '-', 'Outdent', 'Indent']
+                - ['Copy', 'Paste', 'PasteFromWord', '-', 'Undo', 'Redo']
+                - ['Source']
+                - ['Image']
+                - ['Table']
+            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            # Display images by default when clicking the image dialog browse button
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+            # Upload file as image when sending a file from the image dialog
+            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
+                context: page_contenu # Optional, to upload in a custom context
+#ivory_ck_editor:
+#    autoload: false
+#    default_config: default
+#    configs:
+#        default:
+#            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+#            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
+#            # Display images by default when clicking the image dialog browse button
+#            filebrowserImageBrowseRouteParameters:
+#                provider: sonata.media.provider.image
+#            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
+#            filebrowserUploadRouteParameters:
+#                provider: sonata.media.provider.file
+#            # Upload file as image when sending a file from the image dialog
+#            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
+#            filebrowserImageUploadRouteParameters:
+#                provider: sonata.media.provider.image
+#                context: my-context # Optional, to upload in a custom context

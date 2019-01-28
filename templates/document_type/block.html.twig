@@ -1,0 +1,33 @@
+<!--Category Widget-->
+<!--<div class="sidebar-widget categories-widget">
+	<div class="sidebar-title">
+		<h2>Documents</h2>
+	</div>
+	<ul class="cat-list">
+		{% for type in types %}
+			<li class="clearfix"><a href="{{ url('document_by_type', { 'type_slug': type.slug}) }}">{{type.titre}} <span>(30)</span></a></li>
+		{% endfor %}
+	</ul>
+</div>-->
+<!--End Category Widget-->
+
+<div class="sidebar-widget categories-widget">
+	<div class="sidebar-title">
+		<h2>{% trans %}block.documents{% endtrans %}</h2>
+	</div>
+	<div class="footer-widget popular-tags">
+		{% for type in types %}
+			<a href="{{ url('document_by_type', { 'type_slug': type.slug}) }}">{{type.titre}}</a>
+		{% endfor %}
+	</div>
+</div>
+<div class="sidebar-widget categories-widget">
+	<div class="sidebar-title">
+		<h2>{% trans %}block.exercices{% endtrans %}</h2>
+	</div>
+	<div class="footer-widget popular-tags">
+		{% for document in documents %}
+			<a href="{{ url('document_by_exercice', { 'exercice': document.exercice}) }}">{{document.exercice}}</a>
+		{% endfor %}
+	</div>
+</div>

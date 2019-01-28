@@ -1,0 +1,30 @@
+<section class="main-slider">
+    	<div class="auto-container">
+        	<div class="single-item-carousel owl-carousel owl-theme">
+	
+				{% for document in documents %}
+            	<!--Slide-->	
+				<div class="slide">
+                	<figure class="image">
+                    	<a href="{{ url('document', { 'slug': document.slug}) }}">
+						{# {% media document.media, 'slide' %} #}
+						<img src="{% path document.media, 'slide' %}">
+						</a>
+                    </figure>
+                	<div class="overlay-box">
+                    	<div class="overlay-inner">
+                        	<div class="content">
+                            	<div class="category"><a href="{{ url('document', { 'slug': document.slug}) }}">{{ document.DocumentType }}</a></div>
+                                <h2><a href="{{ url('document', { 'slug': document.slug}) }}">{{ document.titre }}</a></h2>
+                                <ul class="post-meta">
+                                	<li><span class="icon qb-clock"></span>{{ document.date|localizeddate('full', 'none') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				{% endfor %}
+                
+            </div>
+        </div>
+    </section>

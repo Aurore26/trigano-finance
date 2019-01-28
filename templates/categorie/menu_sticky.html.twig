@@ -1,0 +1,16 @@
+<nav class="main-menu">
+	<div class="navbar-header">
+		<!-- Toggle Button -->    	
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+	</div>
+
+	<div class="navbar-collapse collapse clearfix">
+		<ul class="navigation clearfix">							
+			{{ include('categorie/menu_sticky_navbar.html.twig', { 'categories': categories }) }}
+		</ul>
+	</div>
+</nav>

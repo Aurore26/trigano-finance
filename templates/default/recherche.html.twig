@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+{{parent()}}
+{% endblock %}
+
+{% block body %}
+
+	<!--Page Title-->
+    <section class="page-title">
+    	<div class="auto-container">
+        	<div class="clearfix">
+            	<!--<div class="pull-left">
+                	<h2>{% block page_title %}Titre de la page{% endblock %}</h2>
+                </div>-->
+                <div class="pull-right">
+                	<ul class="page-title-breadcrumb">
+                    	<li><a href="#"><span class="fa fa-home"></span>{% block page_categorie %}Catégorie de la page{% endblock %}</a></li>
+                        <li>{% block page_ss_categorie %}Titre de la page{% endblock %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+	
+	<!--About Section-->
+    <section class="about-section">
+    	<!--Author Info-->
+		<div class="author-info">
+            <div class="auto-container">
+                <div class="row clearfix">
+					
+					{% block body_page %}
+						<div class="content-column col-md-12 col-sm-12 col-xs-12">		
+							<div class="content-inner">
+								<h2>{% trans %}Search{% endtrans %}</h2>		
+								<p><b>"{{search_field}}" - {{ pagination.getTotalItemCount }} résultat(s)</b></p>
+
+
+								{% for article in pagination %}
+								{{ article.date|localizeddate('short', 'none') }} - {{ article.titre }} <br>
+								{% endfor %}
+
+								<div class="navigation">
+									{{ knp_pagination_render(pagination) }}
+								</div>
+								
+								{% for results in results2 %}
+								{{ results.date|localizeddate('short', 'none') }} - {{ results.titre }}<br>
+								{% endfor %}
+								
+								
+							</div>
+						</div>
+					{% endblock %}
+					
+                </div>
+            </div>
+        </div>
+	</section>
+	
+{% endblock %}

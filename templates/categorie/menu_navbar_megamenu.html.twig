@@ -1,0 +1,50 @@
+
+<!--Tab Section-->
+<div class="tab-section">
+	<!--Product Tabs-->
+	<div class="info-tabs tabs-box">
+		<div class="row clearfix">
+
+			<div class="col-md-2 col-sm-3 col-xs-12">
+				{% for categorie in categories %}
+					{% for page in categorie.getPages %}
+						<a href="{{ path('page', {'slug': page.slug}) }}" class="all-cat">{{ page.titre }}</a>
+					{% endfor %}					
+				{% endfor %}
+			</div>
+			<div class="col-md-10 col-sm-9 col-xs-12">
+				<!--Tabs Container-->
+				<div class="tabs-content">
+
+					<!--Tab / Active Tab-->
+					<div class="tab active-tab" id="prod-travel">
+						<div class="content">
+
+							<div class="row clearfix">
+							
+								{% for categorie in categories %}
+								<!--News Block Nine-->
+								<div class="news-block-nine col-md-4 col-sm-6 col-xs-12">
+									<div class="inner-box">
+										<div class="image">
+											<a href="#"><img src="{% path categorie.media, 'menu' %}" alt="{{ categorie.titre }}" /></a>
+											<div class="category"><a href="#">{{ categorie.MediaSousTitre1 }}</a></div>
+										</div>
+										<div class="lower-box">
+											<h3><a href="#">{{ categorie.titre }}</a></h3>
+											<div class="post-date">{{ categorie.MediaSousTitre2 }}</div>
+										</div>
+									</div>
+								</div>	
+
+								{% endfor %}
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

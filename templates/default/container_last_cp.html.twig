@@ -1,0 +1,44 @@
+                    <!--Category Tabs Box-->
+                    <div class="category-tabs-box">
+                        <!--Product Tabs-->
+                        <div class="prod-tabs tabs-box">
+                        
+                            <!--Tab Btns-->
+                            <div class="tab-btns tab-buttons clearfix">
+                            	<div class="pull-left">
+                                	<div class="category">{% trans %}Press releases{% endtrans %}</div>
+                                </div>                            	
+                            </div>
+                            
+                            <!--Tabs Container-->
+                            <div class="tabs-content">
+                                
+                                <!--Tab / Active Tab-->
+                                <div class="tab active-tab" id="economy-all">
+                                    <div class="content">
+                                        <div class="row clearfix">
+                                            <div class="column col-md-12 col-sm-12 col-xs-12">
+                                                
+                                                {% for document in documents %}
+												<!--Widget Post-->
+                                                <article class="widget-post">
+                                                    <figure class="post-thumb">
+													{% if document.media is not empty %}
+														<a href="{{ url('document', { 'slug': document.slug}) }}"><img class="wow fadeIn" data-wow-delay="0ms" data-wow-duration="2500ms" src="{% path document.media, 'mini' %}" alt="{{ document.titre }}"></a>
+													{% endif %}
+													</figure>
+                                                    <div class="text"><a href="{{ url('document', { 'slug': document.slug}) }}">{{ document.titre }}</a></div>
+                                                    <div class="post-info">{{ document.date|localizeddate('full', 'none') }}</div>
+                                                </article>
+												{% endfor %}
+                                                
+                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!--End Category Info Tabs-->

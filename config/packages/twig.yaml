@@ -1,0 +1,12 @@
+twig:
+    paths: ['%kernel.project_dir%/templates']
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes: # ajouté pour sonata-project/formatter-bundle 
+        #- '@SonataFormatter/Form/formatter.html.twig'
+        - 'SonataFormatterBundle:Form:formatter.html.twig'
+        - 'SonataMediaBundle:Form:media_widgets.html.twig'
+    globals:
+        locales: %app_locales%
+        url_facebook: 'https://www.facebook.com/Trigano-767949899988560/'
+        exercice: '%exercice%'

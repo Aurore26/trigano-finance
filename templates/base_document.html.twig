@@ -1,0 +1,50 @@
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{{parent()}}
+<style>
+.main-menu .navigation > li > a:hover::before, .main-menu .navigation > li.item15 > a::before {left: 0px !important; right: 0px !important;}
+.hidden-bar .side-menu ul > li.item15 > a { color: #e73f43 !important;}
+</style>
+{% endblock %}
+  
+{% block body %}
+
+    <!--Sidebar Page Container-->
+    <div class="sidebar-page-container">
+    	<div class="auto-container">
+        	<div class="row clearfix">
+            	
+                <!--Content Side-->
+                <div class="content-side col-lg-8 col-md-8 col-sm-12 col-xs-12">
+					<div class="content">
+                    	<div class="blog-single">
+                        	<div class="inner-box">
+                            	<div class="upper-box">
+								{% block body_document %}
+								{% endblock %}
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Sidebar Side-->
+                <div class="sidebar-side col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                	<aside class="sidebar default-sidebar right-sidebar">					
+                    	{% block menu_document %}
+							{{ render(controller("App\\Controller\\DocumentController::LastCP")) }}	
+							{{ render(controller("App\\Controller\\DocumentTypeController::blockDocType")) }}
+						{% endblock %}
+                    </aside>
+               	</div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <!--End Sidebar Page Container-->
+
+
+{% endblock %}

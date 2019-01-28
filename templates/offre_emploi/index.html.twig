@@ -1,0 +1,31 @@
+{% extends "base_page.html.twig" %}
+
+{% block page_title %}{{ page.titre }}{% endblock %}
+{% block page_ss_categorie %}{{ page.titre }}{% endblock %}
+{% block page_categorie %}{{ page.categorie.getParent.getTitre }}{% endblock %}
+
+{% block body_page %}
+
+<div class="row clearfix">
+	<div class="column col-md-8 col-sm-8 col-xs-12">											
+		<div class="content-inner">
+			<h2>{{ offre.titre }}</h2>
+			
+			<ul class="post-meta">
+				<li><span class="icon fa fa-clock-o"></span>{{ offre.date|localizeddate('medium', 'none') }}</li>
+				<li><span class="icon fa fa-comment-o"></span>{{offre.localisation}}</li>
+				<li><span class="icon fa fa-eye"></span>{{offre.contrat}}</li>
+			</ul>
+				
+			{{ offre.description | raw }}
+			
+			<div class="contact_box"><a href="{{ url('page', { 'slug': page_contact.slug}) }}" class="reply-btn">Postuler</a></div>
+
+		</div>
+	</div>
+	
+	<div class="column col-md-4 col-sm-4 col-xs-12">
+		{{ render(controller("App\\Controller\\OffreEmploiController::container")) }}	
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    ici<input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} placeholder="Name ..." />
+	<!-- <input type="text" name="name" value="" placeholder="Name ..." required> -->
+{%- endblock form_widget_simple -%}
+
+{%- block textarea_widget -%}
+    là<textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}

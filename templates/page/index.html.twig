@@ -1,0 +1,36 @@
+{% extends "base_page.html.twig" %}
+
+{% block page_title %}{{ page.titre }}{% endblock %}
+{% block page_ss_categorie %}{{ page.titre }}{% endblock %}
+{% block page_categorie %}{{ page.categorie.getParent.getTitre }}{% endblock %}
+
+{% block body_page %}
+	{% if page.media is empty %}
+		<div class="content-column col-md-12 col-sm-12 col-xs-12">
+		
+	{% else %}
+		<!--Image Column-->
+		<div class="image-column col-md-4 col-sm-12 col-xs-12">
+			<div class="image">
+				<img src="{% path page.media, 'normal' %}" alt="{{ page.titre }}" />
+			</div>
+		</div>
+		<!--Image Column-->
+		<div class="content-column col-md-8 col-sm-12 col-xs-12">
+		
+	{% endif %}
+		
+		<div class="content-inner">
+			<h2>{{ page.titre }}</h2>
+			
+			<a href="https://localhost-trigano-finance.com/index.php/admin/app/page/{{ page.id }}/edit" target="blank">>> editer <<</a><br>
+			
+			{{ page.description | raw }}
+
+			{% block body_contact %}
+			{% endblock %}
+		</div>
+	
+	</div>
+		
+{% endblock %}

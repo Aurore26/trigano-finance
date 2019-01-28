@@ -1,0 +1,8 @@
+language: php
+php:
+  - '7.0'
+install:
+  - composer install --dev
+  - ./vendor/bin/simple-phpunit install
+script:
+  - ./vendor/bin/simple-phpunit

@@ -1,0 +1,51 @@
+
+{% extends 'base.html.twig' %}
+  
+{% block body %}
+
+    <!--Sidebar Page Container-->
+    <div class="sidebar-page-container">
+    	<div class="auto-container">
+        	<div class="row clearfix">
+            	
+                <!--Content Side-->
+                <div class="content-side col-lg-8 col-md-8 col-sm-12 col-xs-12">
+					<div class="content">
+                    	<div class="blog-single">
+                        	<div class="inner-box">
+                            	<div class="upper-box">
+                                    <ul class="breadcrumb-bar">
+                                        <li><a href="#">{% trans %}Home{% endtrans %}</a></li>
+                                        <li>{% trans %}Investisors{% endtrans %}</li>
+										{% if page is defined %}
+                                        <li>{{ page.categorie.getTitre }}</li>
+										{% endif %}
+                                    </ul>
+                                    <ul class="tag-title">
+                                        <li>>> document.documentType <<</li>
+                                    </ul>
+                                    <h2>>> document.titre <<</h2>
+                                </div>
+                                
+								{% block body_document %}
+								{% endblock %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Sidebar Side-->
+                <div class="sidebar-side col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                	<aside class="sidebar default-sidebar right-sidebar">		
+						{{ render(controller("App\\Controller\\DocumentTypeController::blockDocType")) }}			
+                    	{{ render(controller("App\\Controller\\DocumentController::LastCP")) }}	
+                    </aside>
+               	</div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <!--End Sidebar Page Container-->
+{% endblock %}

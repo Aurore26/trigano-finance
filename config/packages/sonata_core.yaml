@@ -1,0 +1,150 @@
+sonata_core:
+    form:
+        mapping:
+            enabled: false
+sonata_block:
+    default_contexts: [] # this line can be removed for sonata-project/block-bundle >= 3.10.0
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.block.service.text: ~
+        sonata.block.service.action: ~
+        sonata.block.service.rss: ~
+        sonata.block.service.agenda: ~ #block BO dashboard
+sonata_admin:
+    persist_filters: true
+    templates:
+        #layout: SonataAdminBundle::layout.html.twig
+        layout: '@SonataAdmin/layout.html.twig'
+        #base_list_field: '@SonataAdmin/SonataAdmin/field_tree_up.html.twig'
+    title:                'Trigano Finance'
+    title_logo:           bundles/sonataadmin/logo_title.png
+    dashboard:
+        blocks:
+            -
+                position: center
+                class: col-md-8
+                type: sonata.block.service.agenda #block BO dashboard
+            #-
+            #    position: center
+            #    class: col-md-4
+            #    type: sonata.admin.block.admin_list
+            #    settings:
+            #        groups: [Documents, Page, Menu]
+            #-
+            #    position: right
+            #    class: col-md-4
+            #    type: sonata.admin.block.admin_list
+            #    settings:
+            #        groups: [Offres Emploi, Paramètres, sonata_media]
+
+sonata_formatter:
+    default_formatter: richhtml #markdown
+    formatters:
+        #markdown:
+        #    service: sonata.formatter.text.markdown
+        #    extensions:
+        #        - sonata.formatter.twig.control_flow
+        #        - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig #keep this commented unless you are using media bundle.
+        text:
+            service: sonata.formatter.text.text
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig
+        #rawhtml:
+        #    service: sonata.formatter.text.raw
+        #    extensions:
+        #        - sonata.formatter.twig.control_flow
+        #        - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig
+        richhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig
+        #twig:
+        #    service: sonata.formatter.text.twigengine
+        #    extensions: [] # Twig formatter cannot have extensions
+sonata_media:
+    # if you don't use default namespace configuration
+    class:
+        media: App\Application\Sonata\MediaBundle\Entity\Media
+        gallery: App\Application\Sonata\MediaBundle\Entity\Gallery
+        gallery_has_media: App\Application\Sonata\MediaBundle\Entity\GalleryHasMedia
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr it is mandatory to choose one here
+    default_context: default # you need to set a context
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                #- sonata.media.provider.dailymotion
+                #- sonata.media.provider.youtube
+                - sonata.media.provider.image
+                #- sonata.media.provider.file
+                #- sonata.media.provider.vimeo
+
+            formats:
+                small: { width: 100 , quality: 100}
+                big:   { width: 500 , quality: 100}
+
+        document:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                mini:   { width: 86, height: 79 , quality: 100}
+                slide:   { width: 981, height: 610 , quality: 100}
+                document:   { width: 251, height: 277 , quality: 100}
+
+        page:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                normal: { width: 381 , height: 409 , quality: 100}
+
+        page_contenu:
+            providers:
+                - sonata.media.provider.image
+
+        menu:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                menu: { width: 237 , height: 198 , quality: 100}
+
+        pdf:
+            providers:
+                - sonata.media.provider.file
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  "%kernel.root_dir%/../public/uploads/media"
+            create:     false
+    providers:
+        file:
+            service:    sonata.media.provider.file
+            resizer:    false
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+            #allowed_extensions: ['pdf', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml']
+            #allowed_mime_types: ['application/pdf', 'application/x-pdf', 'application/rtf', 'text/html', 'text/rtf', 'text/plain']
+            allowed_extensions: ['pdf']
+            allowed_mime_types: ['application/pdf']
+
+        image:
+            service:    sonata.media.provider.image
+            resizer:    sonata.media.resizer.simple # sonata.media.resizer.square
+            filesystem: sonata.media.filesystem.local
+            cdn:        sonata.media.cdn.server
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+            allowed_extensions: ['jpg', 'png', 'jpeg', 'gif']
+            allowed_mime_types: ['image/pjpeg', 'image/jpeg', 'image/png', 'image/x-png', 'image/gif']

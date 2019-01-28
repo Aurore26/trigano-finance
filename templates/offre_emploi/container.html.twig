@@ -1,0 +1,59 @@
+<div class="category-tabs-box">
+	<!--Product Tabs-->
+	<div class="prod-tabs tabs-box">
+
+		<!--Tab Btns-->
+		<div class="tab-btns tab-buttons clearfix">
+			<!--<div class="pull-left">
+				<div class="category">Lifestyle</div>
+			</div>-->
+			<div class="pull-right">
+				<div>
+					<div data-tab="#prod-alls" class="tab-btn active-btn">Tous</div>
+					{% for critere in criteres %}
+						{% if loop.first %}
+							<div data-tab="#prod-{{loop.index}}" class="tab-btn">{{ critere.localisation }}</div>
+						{% elseif loop.index == 2 %}
+							<div class="dropdown dropdown-category">
+								<button class="category-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plus <span class="fa fa-angle-down"></span></button>
+								<div class="dropdown-menu pull-right down-panel" aria-labelledby="dropdownMenu3">
+									<ul class="more-category">
+										<li><div data-tab="#prod-{{loop.index}}" class="tab-btn"><a href="#">{{ critere.localisation }}</a></div></li>
+						{% else %}
+							<li><div data-tab="#prod-{{loop.index}}" class="tab-btn"><a href="#">{{ critere.localisation }}</a></div></li>
+							{% if loop.last %}
+									</ul>
+								</div>
+							</div>    
+							{% endif%}
+						{% endif %}
+					{% endfor%}					                                   
+				</div>
+			</div>                            	
+		</div>
+
+		<!--Tabs Container-->
+		<div class="tabs-content">  
+		
+			<!--Tab / Active Tab-->
+			<div class="tab active-tab emploi" id="prod-alls">
+				<div class="content">
+					{{ render(controller("App\\Controller\\OffreEmploiController::sub_container")) }}
+				</div>
+			</div>
+			
+			{% for critere in criteres %}
+			<!--Tab / Active Tab {{ critere.localisation }} -->
+			<div class="tab" id="prod-{{loop.index}}">
+				<div class="content">
+					{{ render(controller("App\\Controller\\OffreEmploiController::sub_container", { 'localisation': critere.localisation } )) }}
+				</div>
+			</div>
+			{% endfor%}
+			
+			
+			
+			
+		</div>
+	</div>
+</div>

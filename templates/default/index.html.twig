@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+  
+	{% block body %}
+    <!--Main Slider-->
+    {{ render(controller("App\\Controller\\DocumentController::slider")) }}
+    <!--End Main Slider-->
+    
+    <!--Sidebar Page Container-->
+    <div class="sidebar-page-container">
+    	<div class="auto-container">
+        	<div class="row clearfix">
+            	
+                <!--Content Side-->
+                <div class="content-side col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					{{ render(controller("App\\Controller\\DocumentController::LastCP")) }}                    
+                </div>
+				
+				<!--Content Side-->
+                <div class="content-side col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				 	{{ render(controller('App\\Controller\\DocumentController::LastCalendar')) }}			
+                </div>
+				
+                
+                <!--Sidebar Side-->
+                <div class="sidebar-side col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                	<aside class="sidebar default-sidebar right-sidebar">
+                        
+                        {{ render(controller("App\\Controller\\DocumentTypeController::blockDocType")) }}
+                        
+                    </aside>
+               	</div>                
+            </div>            
+        </div>
+    </div>
+    <!--End Sidebar Page Container-->
+	{% endblock %}

@@ -1,0 +1,21 @@
+{# template erreur pour env=dev #}
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base_page.html.twig' %}
+
+{% block page_title %}{% trans %}page.not_found{% endtrans %}{% endblock %}
+{% block page_ss_categorie %}{% trans %}page.not_found{% endtrans %}{% endblock %}
+{% block page_categorie %}{% trans %}page.not_found{% endtrans %}{% endblock %}
+
+
+{% block body_page %}
+    <div class="content-column col-md-12 col-sm-12 col-xs-12">		
+        <div class="content-inner">
+            <h2>{% trans %}page.not_found{% endtrans %}</h2>
+            <p><a href="{{ path('homepage', {'_locale': app.request.locale} ) }}">{% trans %}page.return_home{% endtrans %}</a></p>
+            {% block body_contact %}
+            {% endblock %}
+        </div>
+
+    </div>
+		
+{% endblock %}

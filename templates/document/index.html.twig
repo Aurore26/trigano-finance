@@ -1,0 +1,76 @@
+
+{% extends 'base_document.html.twig' %}
+  
+{% block body_document %}
+
+	<div class="upper-box">
+		<ul class="breadcrumb-bar">
+			<li><a href="#">{% trans %}Home{% endtrans %}</a></li>
+			<li>{% trans %}Investisors{% endtrans %}</li>
+			{% if page is defined %}
+			<li>{{ page.categorie.getTitre }}</li>
+			{% endif %}
+		</ul>
+		<ul class="tag-title">
+			<li>{{ document.documentType }}</li>
+		</ul>
+		<h2>{{ document.titre }}</h2>
+		<ul class="post-meta">
+			<li><span class="icon qb-clock"></span>{{ document.date|localizeddate('full', 'none') }}</li>
+		</ul>
+	</div>
+
+	{% if document.isPublished %}
+		{% if document.media is empty %}
+			<div class="text">
+				{{document.description|raw}}
+				
+				<ul class="social-icon-one alternate">
+					{% if document.documentfiles is not empty %}
+						<li class="share">{% trans %}document.download{% endtrans %}</li>
+						{% for fichier in document.documentfiles %}
+							<li class="pinteret"><a target="_blank" href="{% path fichier.file, 'reference' %}" title="{{fichier.titre}}"><span class="fa fa-file"></span></a></li>
+						{% endfor %}
+					{% endif %}
+					<li><a target="_blank" href="{{ url_facebook }}"><span class="fa fa-facebook"></span></a></li>
+				</ul>
+			</div>
+		{% else %}
+			<div class="row clearfix">
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<div class="image">
+						<img src="{% path document.media, 'document' %}" alt="">
+					</div>
+				</div>
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					{{document.description|raw}}
+					
+					<ul class="social-icon-one alternate">
+						{% if document.documentfiles is not empty %}
+						<li class="share">{% trans %}document.download{% endtrans %}</li>
+							{% for fichier in document.documentfiles %}
+								<li class="pinteret"><a target="_blank" href="{% path fichier.file, 'reference' %}" title="{{fichier.titre}}"><span class="fa fa-file"></span></a></li>
+							{% endfor %}
+						{% endif %}
+						<li><a target="_blank" href="{{ url_facebook }}"><span class="fa fa-facebook"></span></a></li>
+					</ul>
+		
+				</div>
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="text">
+			doc non publié
+		</div>
+	{% endif %}
+
+
+	<ul class="new-article clearfix">
+		{% if PreviousDoc is not null%}
+			<li><a href="{{ url('document', { 'slug': PreviousDoc.slug}) }}"><span class="fa fa-angle-left"></span> &ensp; &ensp; &ensp; &ensp; {{ PreviousDoc.titre }}</a></li>
+		{% endif %}
+		{% if NextDoc is not null%}
+			<li><a href="{{ url('document', { 'slug': NextDoc.slug}) }}">{{ NextDoc.titre }} &ensp; &ensp; &ensp; &ensp; <span class="fa fa-angle-right"></span></a></li>
+		{% endif %}
+	</ul>
+{% endblock %}

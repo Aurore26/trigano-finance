@@ -1,0 +1,41 @@
+{# Ce template n'hérite de personne 
+
+ATTENTION il faut penser à modifier les 2 autres menus HIDDEN + STICKY
+
+#}
+
+{% for categorie in categories %}
+	{% set classes = [""] %}
+	{# si 1er niveau, pour avoir le current, on genere le css dans dans le template #}
+	{% if categorie.getLvl == 1%}
+		{% set classes = classes|merge(["item#{categorie.id}"]) %}
+	{% endif %}
+	
+	{# si cat a des enfants, on ajoute une fleche #}
+	{% if categorie.getChildren is not empty %}
+		{% set classes = classes|merge(["dropdown"]) %}
+	{% endif %}
+	
+	{# si cat n'a pas d'enfant ni de page, on affiche la cat #}
+	{% if categorie.getPages|length == 1 and categorie.getChildren is empty %} 	 
+		{% for page in categorie.getPages %}		
+			<li><a href="{{ path('page', {'slug': page.slug}) }}">{{ page.titre }}</a></li>
+		{% endfor %}
+		
+	{% elseif categorie.titre == "Activités" %}
+		<li class="mega-menu {{classes|join(' ')}}"><a href="#">{{ categorie.titre }}</a>
+			<ul class="mega-menu-bar">
+				{% include "categorie/menu_navbar_megamenu.html.twig" with {'categories': categorie.Children} %}
+			</ul>
+		</li>	
+
+	{# si cat a plusieurs enfants ou des pages, on rappelle menu #}
+	{% else %}
+		<li class="{{classes|join(' ')}}"><a href="#">{{ categorie.titre }}</a>
+			<ul>
+				{% include "categorie/menu_navbar.html.twig" with {'categories': categorie.Children} %}
+			</ul>
+		</li>		
+	{% endif %} 	
+	
+{% endfor %}

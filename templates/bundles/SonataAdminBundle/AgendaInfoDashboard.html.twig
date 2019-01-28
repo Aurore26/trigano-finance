@@ -1,0 +1,118 @@
+{% extends 'SonataBlockBundle:Block:block_base.html.twig' %}
+
+{% block block %}
+<div class="row">
+	<div class="col-md-6">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Prochaines publications FR</h3>
+			</div>
+			<div class="box-body">
+				<table class="table table-hover">
+					<tbody>
+						{% for evt in agenda_fr %}			
+						<tr>
+							<td class="sonata-ba-list-label" width="5%">{{ loop.index }}</td>
+							<td class="sonata-ba-list-label" width="30%">{{ evt.date|localizeddate('short', 'none') }}</td>
+							<td class="sonata-ba-list-label" width="35%">{{ evt.titre }}</td>
+							<td width="15%">&nbsp;</td>
+							<td width="15%">
+								<div class="btn-group">
+									<a class="btn btn-link btn-flat" href="{{ path('admin_app_document_edit',  {'id' : evt.id} ) }}">
+										<i class="fa fa-plus-circle" aria-hidden="true"></i>
+										editer
+									</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Slides en home FR</h3>
+			</div>
+			<div class="box-body">
+				<table class="table table-hover">
+					<tbody>
+						{% for slide in slide_fr %}			
+						<tr>
+							<td class="sonata-ba-list-label" width="5%">{{ loop.index }}</td>
+							<td class="sonata-ba-list-label" width="40%">{{ slide.date|localizeddate('short', 'none') }}</td>
+							<td class="sonata-ba-list-label" width="40%">{{ slide.titre }}<br></td>
+							<td><img src="{% path slide.media, 'slide' %}" width=100></td>
+							<td  width="15%">
+								<div class="btn-group">
+									<a class="btn btn-link btn-flat" href="{{ path('admin_app_document_edit',  {'id' : slide.id} ) }}">
+										<i class="fa fa-plus-circle" aria-hidden="true"></i>
+										editer
+									</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-6">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Prochaines publications EN</h3>
+			</div>
+			<div class="box-body">
+				<table class="table table-hover">
+					<tbody>
+						{% for evt in agenda_en %}			
+						<tr>
+							<td class="sonata-ba-list-label" width="5%">{{ loop.index }}</td>
+							<td class="sonata-ba-list-label" width="30%">{{ evt.date|localizeddate('short', 'none') }}</td>
+							<td class="sonata-ba-list-label" width="35%">{{ evt.titre }}</td>
+							<td width="15%">&nbsp;</td>
+							<td width="15%">
+								<div class="btn-group">
+									<a class="btn btn-link btn-flat" href="{{ path('admin_app_document_edit',  {'id' : evt.id} ) }}">
+										<i class="fa fa-plus-circle" aria-hidden="true"></i>
+										editer
+									</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Slides en home EN</h3>
+			</div>
+			<div class="box-body">
+				<table class="table table-hover">
+					<tbody>
+						{% for slide in slide_en %}			
+						<tr>
+							<td class="sonata-ba-list-label" width="5%">{{ loop.index }}</td>
+							<td class="sonata-ba-list-label" width="30%">{{ slide.date|localizeddate('short', 'none') }}</td>
+							<td class="sonata-ba-list-label" width="35%">{{ slide.titre }}</td>
+							<td width="15%"><img src="{% path slide.media, 'slide' %}" width=100></td>
+							<td width="15%">
+								<div class="btn-group">
+									<a class="btn btn-link btn-flat" href="{{ path('admin_app_document_edit',  {'id' : slide.id} ) }}">
+										<i class="fa fa-plus-circle" aria-hidden="true"></i>
+										editer
+									</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+	</div>
+</div>
+{% endblock %}

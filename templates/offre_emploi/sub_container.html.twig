@@ -1,0 +1,18 @@
+
+		{% for offre in offres %}
+			<!--Widget Post-->
+			<article class="widget-post">
+				<div class="text"><a href="{{ url('offre_emploi', { 'slug': offre.slug}) }}">{{offre.titre}}</a></div>
+				<ul class="post-meta">
+					{% if offre.date is not empty %}
+						<li><span class="icon fa fa-clock-o"></span>{{ offre.date|localizeddate('medium', 'none') }}</li>
+					{% endif %}
+					{% if offre.localisation is not empty %}
+						<li><span class="icon fa fa-map-o"></span>{{offre.localisation}}</li>
+					{% endif %}
+					{% if offre.contrat is not empty %}
+						<li><span class="icon fa fa-tag"></span>{{offre.contrat}}</li>
+					{% endif %}
+				</ul>
+			</article>
+		{% endfor %}

@@ -1,0 +1,326 @@
+{# templates/base.html.twig 
+{{ render(controller("App\\Controller\\CategorieController::menu")) }}
+#}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}Trigano Finance{% endblock %}</title>
+	<!-- Stylesheets -->
+	{% block stylesheets %}
+	<link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
+	<!--Color Themes-->
+	<link id="theme-color-file" href="{{ asset('css/color-themes/default-theme.css') }}" rel="stylesheet">
+	{% endblock %}
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+	<!-- Responsive -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+	<!--[if lt IE 9]><script src="{{ asset('js/respond.js') }}"></script><![endif]-->
+	
+	<script type="text/javascript" src="{{ asset('js/tarteaucitron/tarteaucitron.js') }}"></script>
+
+	<script type="text/javascript">
+	var tarteaucitronForceLanguage = 'fr'; /* supported: fr, en, de, es, it, pt, pl, ru */
+	tarteaucitron.init({
+		"hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
+		"highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
+		"orientation": "bottom", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
+		"adblocker": false, /* Afficher un message si un adblocker est détecté */
+		"showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
+		"cookieslist": true, /* Afficher la liste des cookies installés ? */
+		"removeCredit": false, /* supprimer le lien vers la source ? */
+		"handleBrowserDNTRequest": false, /* Deny everything if DNT is on */
+		//"cookieDomain": ".example.com" /* Nom de domaine sur lequel sera posé le cookie pour les sous-domaines */
+	});
+	</script>
+	
+</head>
+
+<body>
+<div class="page-wrapper">
+ 	
+    <!-- Preloader -->
+    <div class="preloader"></div>
+ 	
+    <!-- Main Header -->
+    <header class="main-header">
+    	<!--Header Top-->
+    	<div class="header-top">
+            <div class="auto-container">
+                <div class="clearfix">
+                    <!--Top Left-->
+                    <div class="top-left col-md-4 col-sm-12 col-xs-12">
+                    	<div class="trend">{% trans %}action.action{% endtrans %}</div>
+                        <div class="single-item-carousel owl-carousel owl-theme">
+                        	<div class="slide">
+                            	<div class="text">Paris {{ "now"|date_modify("-15 minutes")|localizeddate('short') }}</div>
+                            </div>
+                            <div class="slide">
+                            	<div class="text">{% trans %}action.see{% endtrans %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Top Right-->
+                    <div class="top-right pull-right col-md-8 col-sm-12 col-xs-12">
+                        <ul class="top-nav">
+                        	<li><a href="#">{% trans %}Brands{% endtrans %}</a></li>
+                            <li><a href="{{ url('page', { 'slug': 'contact'}) }}">{% trans %}contact{% endtrans %}</a></li>
+                        </ul>
+						
+						{#
+                        {% set route = app.request.attributes.get('_route') %}
+						{% set route_params = app.request.attributes.get('_route_params') %}
+						{% set params = route_params|merge(app.request.query.all) %}
+                        #}
+
+						<ul class="english-nav">
+							{% for locale in locales %}
+								{% set classes = '' %}
+								{% if locale == app.request.locale %}
+									{% set classes = 'class=active' %}
+								{% endif %}
+								<li {{classes}}><a href="{{ path('homepage', {'_locale': locale}) }}" >{{ locale }}</a></li>
+							{% endfor %}
+						</ul>	
+						
+                        <ul class="social-nav">
+                        	<li><a href="#"><span class="fa fa-facebook-square"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+    	<!--Header-Upper-->
+        <div class="header-upper">
+        	<div class="auto-container">
+            	<div class="clearfix">
+                	
+                	<div class="pull-left logo-outer">
+                    	<div class="logo"><a href="{{ url('homepage') }}"></a></div>
+                    </div>
+                    
+                    <div class="pull-right upper-right clearfix">
+                    	<div class="add-image">
+                        	<a href="#"><img src="{{ asset('images/resource/header-add.jpg')}}" alt="" /></a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+        
+        <!--Header Lower-->
+        <div class="header-lower">
+        	<div class="auto-container">
+            	<div class="nav-outer clearfix">
+                    <!-- Main Menu -->
+                    {{ render(controller("App\\Controller\\CategorieController::menu")) }}					
+                    <!-- Main Menu End-->
+                    <div class="outer-box">                        
+                        <!--Search Box-->
+                        <div class="search-box-outer">
+                            <div class="dropdown">
+                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-search"></span></button>
+                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu1">
+                                    <li class="panel-outer">
+                                        <div class="form-container">
+                                            <form method="get" action="{{ url('recherche') }}" name="search_form">
+                                                <div class="form-group">
+                                                    <input type="search" name="field-search" value="" placeholder="{% trans %}Search{% endtrans %}" required>
+                                                    <button type="submit" class="search-btn" name="search-btn"><span class="fa fa-search"></span></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hidden Nav Toggler -->
+					<div class="nav-toggler">
+						<button class="hidden-bar-opener"><span class="icon qb-menu1"></span></button>
+					</div>
+                    
+                </div>
+                 
+            </div>
+        </div>
+        <!--End Header Lower-->
+    
+    	<!--Sticky Header-->
+        <div class="sticky-header">
+            <div class="auto-container clearfix">
+                <!--Logo-->
+                <div class="logo pull-left">
+                    <a href="{{ url('homepage') }}" class="img-responsive" title=""></a>
+                </div>
+                
+                <!--Right Col-->
+                <div class="right-col pull-right">
+                    <!-- Main Menu -->
+                    {{ render(controller("App\\Controller\\CategorieController::menuSticky")) }}
+                    <!-- Main Menu End-->
+                </div>
+                
+            </div>
+        </div>
+        <!--End Sticky Header-->
+    
+    </header>
+    <!--End Header Style Two -->
+    
+    <!-- Hidden Navigation Bar -->
+    <section class="hidden-bar left-align">
+        
+        <div class="hidden-bar-closer">
+            <button><span class="qb-close-button"></span></button>
+        </div>
+        
+        <!-- Hidden Bar Wrapper -->
+        <div class="hidden-bar-wrapper">
+            <div class="logo">
+            	<a href="{{ url('homepage') }}"></a>
+            </div>
+            <!-- .Side-menu -->
+            {{ render(controller("App\\Controller\\CategorieController::menuHidden")) }}
+            <!-- /.Side-menu -->
+            
+            <!--Options Box-->
+            <div class="options-box">
+            	<!--Sidebar Search-->
+                <div class="sidebar-search">
+                    <form method="get" action="{{ url('recherche') }}" name="search_form">
+                        <div class="form-group">
+                            <input type="search" name="field-search" value="" placeholder="{% trans %}Search{% endtrans %} ..." required="">
+                            <button type="submit" class="theme-btn"><span class="fa fa-search"></span></button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="language dropdown"><a class="btn btn-default dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="#"> {{app.request.locale}} <span class="icon fa fa-angle-down"></span></a>
+						
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+							{% for locale in locales %}
+								{% set classes = '' %}
+								{% if locale == app.request.locale %}
+									{% set classes = 'class=active' %}
+								{% endif %}
+								<li {{classes}}><a href="{{ path('homepage', {'_locale': locale}) }}" >{{ locale }}</a></li>
+							{% endfor %}
+						</ul>
+                </div>
+                
+                <!--Social Links-->
+                <ul class="social-links clearfix">
+                    <li><a href="#"><span class="fa fa-facebook-f"></span></a></li>                   
+                </ul>
+                
+            </div>
+            
+        </div><!-- / Hidden Bar Wrapper -->
+        
+    </section>
+    <!-- End / Hidden Bar -->
+    
+	
+	{% block body %}
+    <p> mon body par defaut ici</p>
+		>> {{ app.request }} <<
+	
+	<br><br>
+	{{ path(app.request.attributes.get('_route'),  app.request.attributes.get('_route_params')) }}
+	<br><br>
+	{{ app.request.uri }}
+	<br><br>
+	{{ app.request.pathinfo }}
+	
+	<br><br>
+	
+	{% endblock %}
+	
+	{% embed "default/footer_chiffres.html.twig" %}
+	{% endembed %}
+    
+    <!--Main Footer-->
+    <footer class="main-footer">
+        <!--Footer Bottom-->
+        <div class="footer-bottom">
+        	<div class="auto-container">
+            	<div class="row clearfix">
+                	<!--Column-->
+                    <div class="column col-md-3 col-sm-12 col-xs-12">
+                    	<div class="logo">
+                        	<a href="index.html"></a>
+                        </div>
+                    </div>
+                    <!--Column-->
+                    <div class="column col-md-6 col-sm-12 col-xs-12">
+                    	<div class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit doli. Aenean commodo ligula eget dolor. Aenean massa. Cumtipsu sociis natoque penatibus et magnis dis parturient montesti, nascetur ridiculus mus. Donec qua. Lorem ipsum dolor sit amet, consectetuer adipiscing elit doli. Aenean commodo ligula eget dolor.</div>
+                    </div>
+                    <!--Column-->
+                    <div class="column col-md-3 col-sm-12 col-xs-12">
+                    	<ul class="social-icon-one">
+                        	<li><a href="#"><span class="fa fa-facebook"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--Copyright Section-->
+            <div class="copyright-section">
+                <div class="auto-container">
+                    <div class="row clearfix">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <ul class="footer-nav">
+                                <li><a href="#">{% trans %}Home{% endtrans %}</a></li>
+                                <li><a href="{{ url('page', { 'slug': 'contact'}) }}">{% trans %}contact{% endtrans %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="copyright">&copy; Copyright TRIGANO 2018</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--End Main Footer-->
+    
+</div>
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="icon fa fa-angle-double-up"></span></div>
+
+<!--End Scroll to top-->
+{% block javascripts %}
+<script src="{{ asset('js/jquery.js') }}"></script> 
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/jquery.fancybox.pack.js') }}"></script>
+<script src="{{ asset('js/jquery.fancybox-media.js') }}"></script>
+<script src="{{ asset('js/owl.js') }}"></script>
+<script src="{{ asset('js/appear.js') }}"></script>
+<script src="{{ asset('js/wow.js') }}"></script>
+<script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/color-settings.js') }}"></script>
+<script type="text/javascript">
+        /*tarteaucitron.user.gajsUa = 'UA-XXXXXXXX-X';
+        tarteaucitron.user.gajsMore = function () { 
+		};
+        (tarteaucitron.job = tarteaucitron.job || []).push('gajs');*/
+</script>
+{% endblock %}
+</body>
+</html>

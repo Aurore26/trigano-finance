@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+{{parent()}}
+{# besoin de tester car page ERREUR n'a pas de page#}
+{% if page is defined %}
+<style>
+.main-menu .navigation > li > a:hover::before, .main-menu .navigation > li.item{{ page.categorie.getParent.getId}} > a::before {left: 0px !important;   right: 0px !important;}
+.hidden-bar .side-menu ul > li.item{{ page.categorie.getParent.getId}} > a { color: #e73f43 !important;}
+</style>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+
+	<!--Page Title-->
+    <section class="page-title">
+    	<div class="auto-container">
+        	<div class="clearfix">
+            	<!--<div class="pull-left">
+                	<h2>{% block page_title %}Titre de la page{% endblock %}</h2>
+                </div>-->
+                <div class="pull-right">
+                	<ul class="page-title-breadcrumb">
+                    	<li><a href="#"><span class="fa fa-home"></span>{% block page_categorie %}Catégorie de la page{% endblock %}</a></li>
+                        <li>{% block page_ss_categorie %}Titre de la page{% endblock %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+	
+	<!--About Section-->
+    <section class="about-section">
+    	<!--Author Info-->
+		<div class="author-info">
+            <div class="auto-container">
+                <div class="row clearfix">
+					
+					{% block body_page %}
+					{% endblock %}
+					
+                </div>
+            </div>
+        </div>
+	</section>
+	
+{% endblock %}

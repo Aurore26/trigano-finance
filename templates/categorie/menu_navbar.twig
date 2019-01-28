@@ -1,0 +1,25 @@
+{# Ce template n'hérite de personne #}
+
+{% for categorie in categories %}
+	{% set classes = [""] %}
+	{# si cat a des enfants ou des pages, on ajoute une fleche #}
+	{% if categorie.getChildren is not empty or categorie.getPages is not empty%}
+		{% set classes = classes|merge(["drop"]) %}
+	{% endif %}
+
+	{# si cat n'a pas d'enfant ni de page, on affiche la cat #}
+	{% if categorie.getPages|length == 1 and categorie.getChildren is empty %} 	 
+		{% for page in categorie.getPages %}		
+			<li><a href="{{ path('page', {'slug': page.slug}) }}">{{ page.titre }}</a></li>
+		{% endfor %}
+
+	{# si cat a plusieurs enfants ou des pages, on rappelle menu #}
+	{% else %}
+		<li class="current dropdown"><a href="#">{{ categorie.titre }}</a>
+			<ul>
+				{% include "categorie/menu.html.twig" with {'categories': categorie.Children} %}
+			</ul>
+		</li>		
+	{% endif %} 	
+	
+{% endfor %}

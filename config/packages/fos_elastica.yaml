@@ -1,0 +1,46 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/setup.md
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200, logger: false }
+    indexes:
+        trigano_index:
+            client: default
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            custom_french_analyzer:
+                                #type: custom
+                                tokenizer: standard #keyword
+                                filter: ["french_elision", "lowercase", "asciifolding", "french_stem"]
+                                #filter: ["asciifolding", "lowercase", "french_stem", "stop_fr"]
+                        filter: 
+                            #nombre d'ation DEVIENT nombre action
+                            french_elision: 
+                                type: "elision"
+                                articles_case: "true"
+                                articles: ["l", "m", "t", "qu", "n", "s", "j", "d", "c", "jusqu", "quoiqu", "lorsqu", "puisqu"]
+            types:
+                document:
+                    properties:
+                        titre: {type: "text", analyzer: custom_french_analyzer}
+                        date: ~ #{type: "date", "fielddata": true}
+                        isPublished: ~
+                        exercice: ~
+                    persistence:
+                        # the driver can be orm, mongodb or phpcr
+                        driver: orm
+                        model: App\Entity\Document
+                        provider: ~
+                        finder: ~
+                        listener:
+                            insert: false
+                            update: false
+                            delete: false
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: App\Entity\Utilisateur
+    from_email:
+        address: amorel@trigano.fr
+        sender_name: aurore

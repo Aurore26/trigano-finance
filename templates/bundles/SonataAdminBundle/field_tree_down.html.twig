@@ -1,0 +1,14 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+
+    {% spaceless %}
+        {% if object.parent %}
+			{% if object.parent.children[object.parent.children|length - 1].id != object.id %}
+            <a href="{{ path('categorie_tree_down', {'categorie_id': object.id}) }}">
+                v
+            </a>
+        	{% endif %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
