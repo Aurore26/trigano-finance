@@ -6,16 +6,16 @@ php:
   - '7.0'
 
 # Allows use container-based infrastructure
-sudo: false
+#sudo: false
 
 # Start mysql service
 services:
  - mysql
  
  # Cache composer packages so "composer install" is faster
-cache:
-  directories:
-- $HOME/.composer/cache/files
+#cache:
+#  directories:
+#  - $HOME/.composer/cache/files
   
 # Define an environment variable
 env:
