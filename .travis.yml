@@ -6,7 +6,7 @@ php:
   - '7.0'
 
 # Allows use container-based infrastructure
-sudo: false
+#sudo: false
 
 # Start mysql service
 services:
