@@ -24,7 +24,7 @@ fos_elastica:
                 document:
                     properties:
                         titre: {type: "text", analyzer: custom_french_analyzer}
-                        date: ~ #{type: "date", "fielddata": true}
+                        date: {type: "date"} #~ #{type: "date", "fielddata": true}
                         isPublished: ~
                         exercice: ~
                     persistence:
@@ -34,9 +34,9 @@ fos_elastica:
                         provider: ~
                         finder: ~
                         listener:
-                            insert: false
-                            update: false
-                            delete: false
+                            insert: true
+                            update: true
+                            delete: true
 fos_user:
     db_driver: orm
     firewall_name: main

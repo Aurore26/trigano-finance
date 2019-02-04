@@ -7,6 +7,10 @@ parameters:
     sonata.media.provider.image.class: 		App\Application\Sonata\MediaBundle\Provider\MyImageProvider
     sonata.media.provider.file.class: 		App\Application\Sonata\MediaBundle\Provider\MyFileProvider
     sonata.media.thumbnail.format: 		 	App\Application\Sonata\MediaBundle\Thumbnail\MyFormatThumbnail
+    maintenanceMode: false  # rajouté aurore pour page de maintenance
+    maintenanceAuthorizedIp:  # rajouté aurore pour page de maintenance
+        - "194.51.146.188"
+        - "137.2.20.143" #IP en local aurore
 
 services:
     # default configuration for services in *this* file
@@ -84,3 +88,8 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: sonata.block }
+    app.maintenance_listener: # pour page de maintenance
+        class: App\EventListener\MaintenanceListener
+        arguments: [ %maintenanceMode%, %maintenanceAuthorizedIp%, "@templating" ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

@@ -39,16 +39,35 @@ class DefaultController extends Controller
 			$titreQuery->setFieldParam('titre', 'analyzer', 'custom_french_analyzer');
 			$boolQuery->addMust($titreQuery);
 
-			// priorité sur les doc récents
-			 $dateQuery = new \Elastica\Query\Range('date', [
-				'boost' => 1,
-				'gte'   => (new \DateTime('-12 month'))->format('c'), // >
-			]);
-			$boolQuery->addMust($dateQuery); 
-
 			// les doc doivent être publiés
 			$isPublishedQuery = new \Elastica\Query\Match('isPublished', true);
 			$boolQuery->addMust($isPublishedQuery);
+            
+            // les doc doivent être dans la langue
+			$langueQuery = new \Elastica\Query\Match('langue', $locale);
+			$boolQuery->addMust($langueQuery);   
+
+			// priorité sur les doc récents
+            // doc de moins de 6 moins
+			$dateQuery = new \Elastica\Query\Range('date', [
+				'boost' => 6,
+				'gte'   => (new \DateTime('-6 months'))->format('c')
+			]);            
+			$boolQuery->addShould($dateQuery);
+            // doc entre 6 mois et 1 an
+            $dateQuery = new \Elastica\Query\Range('date', [
+				'boost' => 4,
+				'gte'   => (new \DateTime('-12 months'))->format('c'),
+				'lte'   => (new \DateTime('-6 months'))->format('c')
+			]);
+            $boolQuery->addShould($dateQuery);
+            // doc entre 1 an et 1 an et demi
+            $dateQuery = new \Elastica\Query\Range('date', [
+				'boost' => 3,
+				'gte'   => (new \DateTime('-18 months'))->format('c'),
+				'lte'   => (new \DateTime('-12 months'))->format('c')
+			]);
+			$boolQuery->addShould($dateQuery);
 
 			$query->setQuery($boolQuery);
 
