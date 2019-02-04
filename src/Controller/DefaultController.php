@@ -20,7 +20,10 @@ class DefaultController extends Controller
     {
 		$pagination = '';		
 		if ('GET' === $request->getMethod()){
-			$search_field = $request->query->get('field-search');//$_GET parameters
+			
+       	    $locale = $request->getLocale();
+            
+            $search_field = $request->query->get('field-search');//$_GET parameters
 			//$search_field = $request->request->get('field-search');	//$_POST parameters
 
 			//$finder = $this->container->get('fos_elastica.finder.trigano_index.document');			

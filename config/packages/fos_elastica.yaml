@@ -27,6 +27,7 @@ fos_elastica:
                         date: {type: "date"} #~ #{type: "date", "fielddata": true}
                         isPublished: ~
                         exercice: ~
+                        langue: ~
                     persistence:
                         # the driver can be orm, mongodb or phpcr
                         driver: orm
