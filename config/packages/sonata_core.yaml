@@ -38,9 +38,22 @@ sonata_admin:
             #    type: sonata.admin.block.admin_list
             #    settings:
             #        groups: [Offres Emploi, Paramètres, sonata_media]
+    assets:
+        extra_javascripts:
+            - bundles/fosckeditor/ckeditor.js
+            - bundles/sonataformatter/vendor/markitup-markitup/markitup/jquery.markitup.js
+            - bundles/sonataformatter/markitup/sets/markdown/set.js
+            - bundles/sonataformatter/markitup/sets/html/set.js
+            - bundles/sonataformatter/markitup/sets/textile/set.js
+
+        extra_stylesheets:
+            - bundles/sonataformatter/markitup/skins/sonata/style.css
+            - bundles/sonataformatter/markitup/sets/markdown/style.css
+            - bundles/sonataformatter/markitup/sets/html/style.css
+            - bundles/sonataformatter/markitup/sets/textile/style.css
 
 sonata_formatter:
-    default_formatter: richhtml #markdown
+    #default_formatter: text #richhtml #markdown
     formatters:
         #markdown:
         #    service: sonata.formatter.text.markdown

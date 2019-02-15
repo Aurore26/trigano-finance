@@ -3,6 +3,7 @@
     "license": "proprietary",
     "require": {
         "php": "^7.0.8",
+        "friendsofsymfony/ckeditor-bundle": "^1.2",
         "friendsofsymfony/elastica-bundle": "^5.0",
         "friendsofsymfony/user-bundle": "^2.1",
         "knplabs/knp-paginator-bundle": "^2.7",
@@ -72,5 +73,8 @@
             "id": "01C5925VEE34BRE3ZYWF2VVCK5",
             "allow-contrib": false
         }
+    },
+    "replace": {
+        "egeloen/ckeditor-bundle": "*"
     }
 }
