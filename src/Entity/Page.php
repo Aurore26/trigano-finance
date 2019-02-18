@@ -48,7 +48,7 @@ class Page
     private $updatedAt;
 	
     /**
-     * @Gedmo\Slug(fields={"titre"},separator="-", updatable=true, unique=true)
+     * @Gedmo\Slug(fields={"titre"},separator="-", updatable=true, unique=true, unique_base="langue")
      * @ORM\Column(length=255)
      */
     private $slug;
